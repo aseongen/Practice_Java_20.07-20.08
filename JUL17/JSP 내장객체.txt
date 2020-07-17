@@ -1,0 +1,49 @@
+
+JSP내장객체
+ -개발자가JSP파일내에객체를생성하지않고바로사용할수있는객체가내장객체입니다. 
+ -JSP에서제공되는내장객체는JSP컨테이너에의해서블릿으로변환될때자동으로객체가생성됩니다
+
+*JSP내장객체의종류
+ 1.request javax.servlet.http.HttpServletRequest
+ 2.response javax.servlet.http.HttpServletResponse
+ 3.out javax.servlet.jsp.JspWriter
+ 4.session javax.servlet.http.HttpSession
+ 5.application javax.servlet.ServletContext
+ 6.pageContext javax.servlet.jsp.PageContext
+ 7.page javax.servlet.jsp.HttpJspPage
+ 8.config javax.servlet.ServletConfig
+ 9.exception java.lang.Throwable
+
+*request객체의이해
+ -웹브라우저를통해서버에어떤정보를요청하는것을request라고합니다. 
+ -이러한요청정보가담기고관리되는곳이request객체입니다.
+ -request객체가제공하는기능. 
+  1.클라이언트(웹라우저)와관련된정보읽기기능.
+  2.서버와관련된정보읽기기능.
+  3.클라이언트가전송한요청파라미터읽기기능.
+  4.클라이언트가전송한쿠키읽기기능.
+ -request객체관련주요메서드
+1.getContextPath():String
+ -웹어플리케이션의컨텍스트루트의경로를얻습니다. 
+2.getMethod():String
+ -웹브라우저가정보를전송할때사용한요청방식을구합니다.(get,post)
+3.getServerName():String
+ -연결할때사용한서버이름을구합니다. 
+4.getServerPort():int
+ -서버가실행중인포트번호를구합니다. 
+5.getRequestURL():String
+ -요청URL을얻습니다. 
+6.getRequestURI():String
+ -요청URI를얻습니다. 
+7.getRemoteAddr():String
+ -웹서버에연결한클라이언트의IP주소를구합니다.
+8.getProtocol():String
+ -해당프로토콜을얻습니다. 
+9.getParameter(Stringname):String
+ -이름이name인파라미터값을구합니다.존재하지않을경우null을반환합니다. 
+10.getParameterValues(Stringname):String[]
+ -이름이name인모든파라미터값들을배열로구합니다.재하지않을경우null을반환합니다. 
+11.getParameterNames():java.util.Enumeration
+ -웹브라우저전송한파라미터의이름목록을구합니다. 
+12.getParameterMap():java.util.Map
+ -웹브라우저가전송한파라미터의맵을구합니다.맵은<파라미터이름,파라미터값>쌍으로구성됩니다
