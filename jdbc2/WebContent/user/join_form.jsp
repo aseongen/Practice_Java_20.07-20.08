@@ -18,9 +18,11 @@
 			<option>019</option>
 		</select> - <input type="text" name="phone2" size="5"> - 
 		<input type="text" name="phone3" size="5"> <br> 
-		성별: <input	type="radio" name="gender" value="남">
-		남 &nbsp; <input	type="radio" name="gender" value="여">
-		여 <br> <input type="submit" value="회원가입">
+		성별: <input	type="radio" name="gender" value="남">남 &nbsp; 
+		<input type="radio" name="gender" value="여">여 <br> 
+		<input type="submit" value="회원가입">
+		&nbsp;&nbsp;
+		<a href = "show_all_users.jsp">모든 회원 정보 보기</a>
 	</form>
 </body>
 </html>

@@ -8,7 +8,7 @@
 	String pw = request.getParameter("pw");
 	//2.SQL 문 작성(select 문으로 가입 당시의 패스워드를 조회)
 	//String sql = "select pw, name from users " + "where id ='" + id + "'";
-	String sql = "seelct pw, name from users where id =?";
+	String sql = "select pw, name from users where id =?";
 
 	//3.DB 연동에 필요한 변수들 선언
 	String url = "jdbc:oracle:thin:@localhost:1521:xe";

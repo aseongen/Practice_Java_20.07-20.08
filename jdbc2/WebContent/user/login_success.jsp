@@ -10,8 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	<h3><%=name%>(<%=id%>)님 로그인이 완료되었습니다.</h3>
+	<h3><%=name%>.(<%=id%>)님 로그인이 완료되었습니다.</h3>
 	<a href="update_form.jsp">회원 정보 수정</a>
 	<a href="delete_ok.jsp">회원 탈퇴</a>
 	<a href="logout.jsp">로그아웃</a>

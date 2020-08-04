@@ -1,10 +1,23 @@
+<%@page import="kr.co.koo.jdbc.user.model.UserDAO"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ page import="java.sql.*"%>
 
 <%
 	String id = (String)session.getAttribute("user_id");
 
-	String uid = "week";
+    UserDAO dao = UserDAO.getInstance();
+    int rn = dao.userDelete(id);
+
+    if(rn==1){
+    	session.invalidate();
+    	response.sendRedirect("login_form.jsp");
+    	
+    }else{
+    	response.sendRedirect("login_success.jsp");
+    }
+    
+
+	/*String uid = "week";
 	String upw = "week";
 	String url = "jdbc:oracle:thin:@localhost:1521:xe";
 
@@ -36,6 +49,8 @@
 			
 		}catch(Exception e){e.printStackTrace(); }
 	}
+	*/
+	
 	
 %>
 

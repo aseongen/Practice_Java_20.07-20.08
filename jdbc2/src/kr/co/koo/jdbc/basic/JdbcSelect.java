@@ -34,7 +34,8 @@ public class JdbcSelect {
 			String sql = "select * from member222";
 			
 			 st.executeQuery(sql);//String type
-			
+			//executeQuery : DB에 명령
+			 //ResultSet : 명령에 대한 반환값. 반환해주는 값은 테이블을 보시면서 해야 이해할 듯 
 			while(rs.next()) {
 				/* - select 의 실행 결과의 컬럼 레코드를 읽어오려면 
 				 * getString(), getInt() 등의 메서드를 사용합니다.
