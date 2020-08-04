@@ -1,24 +1,35 @@
 package kr.co.koo.jdbc.user.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
 //DAO 클래스는DB 작업을 전담처리합니다
 public class UserDAO {
 
-	private String uid = "week";
+/*	private String uid = "week";
 	private String upw = "week";
-	private String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	private String url = "jdbc:oracle:thin:@localhost:1521:xe";*/
+	
+	private DataSource ds = null; //ds에 커넥션 풀을 받는다 : context.xml 
+	
 
 	// 객체를 하나만 사용하게 제한 하는 방법 => 싱글톤 패턴 클래스 생성
 	// 1. 클래스 외부에서 객체를 생성할 수 없도록 생성자에 private 제한을 붙임
 	private UserDAO() {
 		try {
-			Class.forName("oracle.jdbc.OracleDriver");
+			//Class.forName("oracle.jdbc.OracleDriver");
+			//Context.xml 을 읽기 위한 객체
+			Context ct = new InitialContext(); 
+			ds = (DataSource) ct.lookup("java:comp/env/jdbc/xe"); //context.xml -> 커넥션 풀 -> name
+			//lookup : object type(최상위) -> DataSource 다운캐스팅
+			
 
 		} catch (Exception e) {e.printStackTrace();}
 
@@ -47,7 +58,8 @@ public class UserDAO {
 		int rn = 0;
 
 		try {
-			conn = DriverManager.getConnection(url, uid, upw);
+//			conn = DriverManager.getConnection(url, uid, upw);
+			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, users.getName());
 			pstmt.setString(2, users.getId());
@@ -82,7 +94,7 @@ public class UserDAO {
 			ResultSet rs = null; //select 문 
 			
 			try {
-				conn = DriverManager.getConnection(url,upw,uid);
+				conn = ds.getConnection();
 				pstmt = conn.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				
@@ -117,32 +129,33 @@ public class UserDAO {
 			}
 			return userList;
  			
-  }
-	//회원 탈퇴를 처리하는 메서드 선언
-	public int userDelete(String id){
-		int rn = 0;
-		
-		String sql = "delete from users where id=?";
-		
+  }public int userDelete(String id) {
+
+		String sql = "DELETE FROM users WHERE id=?";
+
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		
+
+		int rn = 0;
 		try {
-			conn = DriverManager.getConnection(url, uid, upw);
+			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			 
+
 			pstmt.setString(1, id);
-			
-			rn = pstmt.executeUpdate();
-			
-		}catch(Exception e) {e.printStackTrace();}
-		finally {
+
+			rn = pstmt.executeUpdate();	         
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
 			try {
-				if(conn != null) conn.close();
-				if(pstmt != null) pstmt.close();
-			}catch(Exception e) {e.printStackTrace();}
+				if(conn!=null) conn.close();
+				if(pstmt!=null) pstmt.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
 		}
+
 		return rn;
-		
 	}
 }

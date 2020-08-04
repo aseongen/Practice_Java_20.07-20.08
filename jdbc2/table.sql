@@ -29,3 +29,6 @@ select * from users;
 select * from member22;
 
 
+DELETE FROM users WHERE id=dd
+
+delete from users where id='11'

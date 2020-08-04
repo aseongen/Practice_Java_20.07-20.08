@@ -3,14 +3,15 @@
 <%@ page import="java.sql.*"%>
 
 <%
-	String id = (String)session.getAttribute("user_id");
-
+	String id = (String)session.getAttribute("login_id");
+// 세션 아이디 키값이 login_id인가봐
     UserDAO dao = UserDAO.getInstance();
     int rn = dao.userDelete(id);
 
     if(rn==1){
     	session.invalidate();
     	response.sendRedirect("login_form.jsp");
+    // 주소가 바뀌어 있었어~
     	
     }else{
     	response.sendRedirect("login_success.jsp");
