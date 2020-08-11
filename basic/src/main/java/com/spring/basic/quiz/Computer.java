@@ -11,7 +11,7 @@ public class Computer {
    @Autowired
    private Mouse mouse;
    
-   
+   //
    
   /*  @Autowired
    * public Computer(Monitor monitor, com.spring.basic.quiz.keyboard keyboard, Mouse mouse) {
