@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.web.model.UserVO;
@@ -121,11 +122,36 @@ public class RequestController {
 	public void register(UserVO user) {
 		System.out.println("Id: " + user.getUserId());
 		System.out.println("PW: " + user.getUserPw());
+		
 		System.out.println("NAME: " + user.getUserName());
 		System.out.println("HOBBY: " + user.getHobby());
 	}
 	
-	
-
+	//req-quiz 정답
+		@RequestMapping(value="/quiz", method=RequestMethod.GET)
+		public String quiz() {
+			return "request/req-Quiz";
+		}
+		
+		/*@RequestMapping(value="/quiz", method=RequestMethod.POST)
+		public String quiz(@RequestParam("userId") String id,
+						@RequestParam("userPw") String pw) {
+		
+			if(id.equals("abc1234") && pw.equals("xxx4321"))
+				return "request/login-success";
+			else
+				return "request/login-fail";
+		}*/
+		
+		@RequestMapping(value="/quiz", method=RequestMethod.POST)
+		public String quiz(UserVO user) {
+		
+			if(user.getUserId().equals("abc1234") 
+					&& user.getUserPw().equals("xxx4321"))
+				return "request/login-success";
+			else
+				return "request/login-fail";
+		}
+		
 	
 }

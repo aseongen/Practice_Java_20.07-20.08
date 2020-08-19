@@ -27,7 +27,7 @@ scope="application" -> 해당 페이지 뿐만 아니라 다른 페이지에서�
 <form action="${path}/request/join" method="post">  => path == request.getContextPath()  
 --%>
 <%-- # 2번 방식 --%>
-<form action="<c:url value='/request/join' />" method="post"> <!-- private : 패스워드 -> post 방식 -->
+<form action="<c:url value='/request/join'/>" method="post"> <!-- private : 패스워드 -> post 방식 -->
 	<fieldset>
 		<legend>회원가입 양식</legend>
 		<p>
