@@ -12,7 +12,7 @@
 	<p>
 		<a href="/web/score/register">다른 점수 등록하기</a>
 		<a href="/web/score/list">점수 전체 조회</a>
-		<a href="#">점수 개별 조회</a>
+		<a href="/web/score/selectOne">점수 개별 조회</a>
 	</p>
 
 </body>

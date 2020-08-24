@@ -33,7 +33,13 @@ public class ScoreDAO implements IScoreDAO {
 
 	@Override
 	public void deleteScore(int stuNum) {
-       scoreList.remove(stuNum -1);
+       scoreList.remove(stuNum );
 	}
+
+	@Override
+	public ScoreVO selectOne(int stuNum) {
+		return scoreList.get(stuNum); //학번의 index번호를 꺼내온다
+	}
+	
 
 }

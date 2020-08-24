@@ -16,5 +16,6 @@ public interface IScoreDAO {
 	//점수 삭제 기능
 	void deleteScore(int stuNum);
 	
-	
+	//점수 개별 조회 기능
+	ScoreVO selectOne(int stuNum);
 }

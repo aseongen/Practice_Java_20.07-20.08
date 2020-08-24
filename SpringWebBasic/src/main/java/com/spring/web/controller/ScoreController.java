@@ -1,5 +1,7 @@
 package com.spring.web.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,4 +57,37 @@ public class ScoreController {
 		ra.addFlashAttribute("message", "delSuccess");
 		return "redirect:/score/list"; //삭제한 후 redirect해서 삭제가 완료된 list를 다시 가져온다
 	}
-}
+	
+	//점수 개별 조회 화면 열람 요청 메서드
+	@GetMapping("/search")
+	public void search() {
+		System.out.println("/score/search: GET");
+	}
+	
+	//점수 개별 조회 처리 요청 메서드
+		@GetMapping("/selectOne")
+		//String으로 받은 다음
+		public String selectOne(String stuNum, Model model,
+								RedirectAttributes ra) {
+			System.out.println("/score/selectOne: GET");
+			
+			List<ScoreVO> list = service.selectAllScores();
+			
+			try {
+				int n = Integer.parseInt(stuNum); //try 안에서 parseInt로 받음
+				
+				if(n > list.size()) {
+					ra.addFlashAttribute("msg", "학번정보가 없습니다.");
+					return "redirect:/score/search";
+				} else {
+					model.addAttribute("stu", service.selectOne(n));
+					return "score/search-result";
+				}
+			} catch(NumberFormatException e) {
+				ra.addFlashAttribute("msg", "숫자로만 입력하세요!");
+				return "redirect:/score/search";
+			}
+			
+		}
+
+	}
