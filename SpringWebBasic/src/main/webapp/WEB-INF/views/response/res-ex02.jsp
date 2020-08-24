@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--taglib 작성하지 않으면 태그 자체에 <c:url ~~ > 값 자체가 입력된다. --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,8 @@
 </head>
 <body>
 
-<form action="<c:url value='/response/join' />" method="post">
+<form action="<c:url value='/response/join'/>" method="post">
+
 	<fieldset>
 		<legend>회원가입 양식</legend>
 		<p>

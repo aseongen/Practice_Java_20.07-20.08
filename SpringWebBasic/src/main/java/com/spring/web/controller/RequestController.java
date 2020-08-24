@@ -127,7 +127,7 @@ public class RequestController {
 		System.out.println("HOBBY: " + user.getHobby());
 	}
 	
-	//req-quiz 정답
+//req-quiz 정답
 		@RequestMapping(value="/quiz", method=RequestMethod.GET)
 		public String quiz() {
 			return "request/req-Quiz";

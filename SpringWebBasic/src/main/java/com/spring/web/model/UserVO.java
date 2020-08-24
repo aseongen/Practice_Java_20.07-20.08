@@ -33,6 +33,12 @@ public class UserVO {
 	public void setHobby(List<String> hobby) {
 		this.hobby = hobby;
 	}
+	//alt + shift + s => to string -> 모든 값의 toString 출력됨
+	@Override
+	public String toString() {
+		return "UserVO [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", hobby=" + hobby + "]";
+	}
 	 
+	
 	
 }
