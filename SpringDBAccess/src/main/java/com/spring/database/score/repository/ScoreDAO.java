@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.spring.database.jdbc.score.commons.ScoreMapper;
 import com.spring.database.jdbc.score.model.ScoreVO;
 
 //add -> interface -> IScoreDAO
@@ -123,14 +124,13 @@ public class ScoreDAO implements IScoreDAO {
 	@Override
 	public List<ScoreVO> selectAllScores() {
 		String sql = "SELECT * FROM scores";
-//		List<ScoreVO> list = template.query(sql, new ScoreMapper()); //query : rowMapper을 가져올것
-		//기존 목록 가져올때 while 돌리는대 이것을 rowMapper이 역할을 한다.
-//		ScoreMapper sm = new ScoreMapper();
-		return template.query(sql, new RowMapper<ScoreVO>() {
+		return template.query(sql, 
+				(rs,rowNum) -> {
+				/*new RowMapper<ScoreVO>() {
 			@Override
 			public ScoreVO mapRow(ResultSet rs, int rowNum) throws SQLException {
-			//람다식 => 클래스를 만들지 말고 아예 익명클래스로 작성 해서 진행
-				//mapRow 역할: ResultSet을 넣어주면 테이블 결과를 넣어준다.(전체)
+				//람다식 => 클래스를 만들지 말고 아예 익명클래스로 작성 해서 진행
+				//mapRow 역할: ResultSet을 넣어주면 테이블 결과를 넣어준다.(전체) */
 				ScoreVO score = new ScoreVO();
 				score.setStuId(rs.getInt("stu_id"));
 				score.setStuName(rs.getString("stu_name"));
@@ -140,9 +140,15 @@ public class ScoreDAO implements IScoreDAO {
 				score.setTotal(rs.getInt("total"));
 				score.setAverage(rs.getFloat("average"));
 				return score;
-			}
+		});
+		
+/*		List<ScoreVO> list = template.query(sql, new ScoreMapper()); 
+        * query : rowMapper을 가져올것
+		* 기존 목록 가져올때 while 돌리는대 이것을 rowMapper이 역할을 한다.
+		ScoreMapper sm = new ScoreMapper();
+		return template.query(sql, new RowMapper<ScoreVO>() {
 			
-		}); 
+		}); */
 	}
 	
 	@Override
