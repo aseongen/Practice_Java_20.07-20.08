@@ -19,32 +19,27 @@ public class ScoreService implements IScoreService {
 	
 	@Override
 	public void insertScore(ScoreVO scores) {
-//		scores.setTotal(scores.getKor()+scores.getEng()+scores.getMath());
-		//너무 길어서 차라리 총점 평균을 사전 VO에서 메서드로 만들어 호출만 하자
 		scores.calcData();
 		dao.insertScore(scores);
 	}
 
 	@Override
 	public List<ScoreVO> selectAllScores() {
-//		List<ScoreVO> list = dao.selectAllScores();
-//		return dao.selectAllScores(); : 
-//		           selectAllScores : dao의 service 점수 전체를 조회하는 메서드를 가져오기
-//		return list; 
-		return dao.selectAllScores(); //2. doa의 점수 전체 조회 하는 메서드 리턴
+		//List<ScoreVO> list = dao.selectAllScores();
+		//return list;
+		return dao.selectAllScores();
 	}
 
 	@Override
 	public void deleteScore(int stuNum) {
-     dao.deleteScore(stuNum -1);
+//		dao.deleteScore(stuNum - 1);
+		dao.deleteScore(stuNum);
 	}
 
 	@Override
 	public ScoreVO selectOne(int stuNum) {
-		return dao.selectOne(stuNum -1);
+		return dao.selectOne(stuNum);
 	}
-	
-	
 
-	
 }
+

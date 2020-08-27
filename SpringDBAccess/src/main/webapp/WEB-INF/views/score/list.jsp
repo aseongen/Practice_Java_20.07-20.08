@@ -12,18 +12,18 @@
 <h2>학생들의 전체 성적 조회</h2>
 <c:forEach var ="stu" items="${sList}"> <!-- List<ScoreVO> -->
 <p>
-# 학번: ${stuNum.index+1}
+# 학번: ${stu.stuId}
 # 이름: ${stu.stuName} <!-- ScoreController list -->
 # 국어: ${stu.kor}
 # 영어: ${stu.eng} 
 # 수학: ${stu.math}
 # 총점: ${stu.total}
 # 평균: ${stu.average} &nbsp;
-<a href ="/web/score/delete?stuNum=${stuNum.index+1}">[삭제]</a>
+<a href ="/database/score/delete?stuId=${stu.stuId}">[삭제]</a>
 </p>
 </c:forEach>
 
-<a href="/web/score/register">다른점수등록하기</a>
+<a href="/database/score/register">다른점수등록하기</a>
 
 <script type="text/javascript">
 const msg= "${message}"; //삭제가 정상으로 처리 되었다면 -> delsuccess 가 저장됨 

@@ -1,7 +1,7 @@
 create table scores(
- stu_id int primary key
- ,stu_name varchar(60) not null
- ,kor number(38)
+stu_id int
+ ,stu_name varchar(60) 
+ ,kor int
  ,eng int
  ,math int
  ,total int
@@ -15,3 +15,7 @@ start with 1
 increment by 1 
 nocache; 
 
+drop table scores;
+
+
+SELECT * FROM scores;

@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 public class ScoreVO {
 
-	private int stu_id;
-	private String stu_name;
+	private int stuId;
+	private String stuName;
 	private int kor;
 	private int eng;
 	private int math;
@@ -26,7 +26,7 @@ public class ScoreVO {
 	
 	@Override
 	public String toString() {
-		return "ScoreVO [stu_id=" + stu_id + ", stu_name=" + stu_name + ", kor=" + kor + ", eng=" + eng + ", math="
+		return "ScoreVO [stu_id=" + stuId + ", stu_name=" + stuName + ", kor=" + kor + ", eng=" + eng + ", math="
 				+ math + ", total=" + total + ", average=" + average + "]";
 	}
 	
