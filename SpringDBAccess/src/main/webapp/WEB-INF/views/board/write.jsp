@@ -21,7 +21,7 @@
 	</p>
 </form>
 
-<a href="/web/board/list">글 목록보기</a>
+<a href="/database/board/list">글 목록보기</a>
 </body>
 </html>
 

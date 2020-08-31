@@ -17,5 +17,17 @@ nocache;
 
 drop table scores;
 
-
 SELECT * FROM scores;
+
+--jdbc 게시판 테이블생성
+create table jdbc_board(
+  board_no int primary key,
+  writer varchar2(100),
+  title varchar2(255),
+  content varchar2(1000)
+);
+
+select * from JDBC_BOARD;
+
+drop table jdbc_baord;
+

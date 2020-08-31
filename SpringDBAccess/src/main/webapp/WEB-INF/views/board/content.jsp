@@ -9,17 +9,17 @@
 </head>
 <body>
 
-<h2>${boardNo}번 게시물 내용</h2>
+<h2>${article.boardNo}번 게시물 내용</h2>
 
 <p>
-	# 글번호: ${boardNo}<br>
+	# 글번호: ${article.boardNo}<br>
 	# 작성자: ${article.writer}<br>
 	# 제목: ${article.title}<br>
 	# 내용: <textarea rows="3" disabled>${article.content}</textarea>	
 </p>
 
-<a href="/web/board/list">글 목록보기</a>&nbsp;
-<a href="/web/board/modify?boardNo=${boardNo}">글 수정하기</a>
+<a href="/database/board/list">글 목록보기</a>&nbsp;
+<a href="/database/board/modify?boardNo=${article.boardNo}">글 수정하기</a>
 
 </body>
 </html>

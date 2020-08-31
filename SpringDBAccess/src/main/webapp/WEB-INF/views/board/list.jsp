@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,44 +9,58 @@
 </head>
 <body>
 
-	<c:if test="${articles.size() <= 0}">
-		<p>게시물이 존재하지 않습니다.</p>
-	</c:if>
+<c:if test="${articles.size() <= 0}">
+	<p>게시물이 존재하지 않습니다.</p>
+</c:if>
 
-	<c:if test="${articles.size() > 0}">
+<c:if test="${articles.size() > 0}">
 
-		<h2>게시글 목록</h2>
+<h2>게시글 목록</h2>
 
-		<table border="1">
-			<tr>
-				<td>번호</td>
-				<td>작성자</td>
-				<td>제목</td>
-				<td>비고</td>
-			</tr>
+<table border="1">
+	<tr>
+		<td>번호</td>
+		<td>작성자</td>
+		<td>제목</td>
+		<td>비고</td>
+	</tr>
+	
+	<%-- 컨트롤러가 가져온 게시글 데이터를 반복하여 출력하세요. --%>
+	<%-- 게시물 개수가 0개일 경우 목록대신 "게시물이 존재하지 않습니다." 출력 --%>
+	
+	<c:forEach var="article" items="${articles}">
+		<tr>
+			<td>${article.boardNo}</td>
+			<td>${article.writer}</td>
+			<td>		
+				<a href="/database/board/content?boardNo=${article.boardNo}">${article.title}</a>
+			</td>
+			<td>
+				<a href="/database/board/delete?boardNo=${article.boardNo}">[삭제]</a>
+			</td>
+		</tr>
+	</c:forEach>	
+	
+</table>
 
-			<%-- 컨트롤러가 가져온 게시글 데이터를 반복하여 출력하세요. --%>
-			<%-- 게시물 개수가 0개일 경우 목록대신 "게시물이 존재하지 않습니다." 출력 --%>
+<br>
+<form action="/database/board/searchList">
+	<input type="text" name="keyword" placeholder="작성자 이름을 입력하세요">
+	<input type="submit" value="검색">
+</form>
 
-			<c:forEach var="article" items="${articles}" varStatus="num">
-				<tr>
-					<td>${num.index+1}</td>
-					<td>${article.writer}</td>
-					<td><a href="/web/board/content?boardNo=${num.index+1}">${article.title}</a>
-					</td>
-					<td><a href="/web/board/delete?boardNo=${num.index+1}">[삭제]</a>
-					</td>
-				</tr>
-			</c:forEach>
+</c:if>
 
-		</table>
-
-	</c:if>
-
-	<p>
-		<a href="/web/board/write">게시글 작성하기</a>
-	</p>
+<p>
+	<a href="/database/board/write">게시글 작성하기</a>
+</p>
 
 </body>
 </html>
+
+
+
+
+
+
 

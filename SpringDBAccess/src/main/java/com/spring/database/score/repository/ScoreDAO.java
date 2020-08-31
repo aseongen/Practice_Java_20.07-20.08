@@ -20,12 +20,31 @@ import com.spring.database.jdbc.score.model.ScoreVO;
 
 @Repository("sDao1")
 public class ScoreDAO implements IScoreDAO {
-
+	
+	 class ScoreMapper implements RowMapper<ScoreVO>{
+     //클래스 안에 클래스를 만들어서 사용한다. ->클래스를 만들어주지 않아도 된다.
+		@Override
+		public ScoreVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+		
+			//mapRow 역할: ResultSet을 넣어주면 테이블 결과를 넣어준다.(전체)
+			ScoreVO score = new ScoreVO();
+			score.setStuId(rs.getInt("stu_id"));
+			score.setStuName(rs.getString("stu_name"));
+			score.setKor(rs.getInt("kor"));
+			score.setEng(rs.getInt("math"));
+			score.setMath(rs.getInt("math"));
+			score.setTotal(rs.getInt("total"));
+			score.setAverage(rs.getFloat("average"));
+			return score;
+		}
+	}
+	
+	/*
 	//#전통적 방식의 JDBC
 	private String driver = "oracle.jdbc.OracleDriver";
 	private String url= "jdbc:oracle:thin:@localhost:1521:xe";
 	private String uid = "week";
-	private String upw = "week";
+	private String upw = "week";*/
 /*	
 	@Override
 	public void insertScore(ScoreVO scores) {
@@ -124,13 +143,14 @@ public class ScoreDAO implements IScoreDAO {
 	@Override
 	public List<ScoreVO> selectAllScores() {
 		String sql = "SELECT * FROM scores";
-		return template.query(sql, 
+		return template.query(sql, new ScoreMapper());
+		/*return template.query(sql, 
 				(rs,rowNum) -> {
-				/*new RowMapper<ScoreVO>() {
+				new RowMapper<ScoreVO>() {
 			@Override
 			public ScoreVO mapRow(ResultSet rs, int rowNum) throws SQLException {
 				//람다식 => 클래스를 만들지 말고 아예 익명클래스로 작성 해서 진행
-				//mapRow 역할: ResultSet을 넣어주면 테이블 결과를 넣어준다.(전체) */
+				//mapRow 역할: ResultSet을 넣어주면 테이블 결과를 넣어준다.(전체) 
 				ScoreVO score = new ScoreVO();
 				score.setStuId(rs.getInt("stu_id"));
 				score.setStuName(rs.getString("stu_name"));
@@ -140,7 +160,7 @@ public class ScoreDAO implements IScoreDAO {
 				score.setTotal(rs.getInt("total"));
 				score.setAverage(rs.getFloat("average"));
 				return score;
-		});
+		}); */
 		
 /*		List<ScoreVO> list = template.query(sql, new ScoreMapper()); 
         * query : rowMapper을 가져올것
@@ -157,7 +177,7 @@ public class ScoreDAO implements IScoreDAO {
 		template.update(sql, stuNum);	
 	}
 
-	@Override
+/*	@Override
 	public ScoreVO selectOne(int stuNum) {
 		
 		ScoreVO score = new ScoreVO();
@@ -196,5 +216,17 @@ public class ScoreDAO implements IScoreDAO {
 		}
 		
 		return score;
+	} */
+	
+	@Override
+	public ScoreVO selectOne(int stuNum) {
+
+		String sql = "SELECT * FROM scores WHERE stu_id=?";
+		
+		//queryForObject : Single row를 리턴할 때 사용한다.
+		//query는 multi row를 리턴할 때 사용합니다.
+		//scoreMapper -> DAO에서만 사용예정 
+		return template.queryForObject(sql, new ScoreMapper(), stuNum);
+		
 	}
 }
