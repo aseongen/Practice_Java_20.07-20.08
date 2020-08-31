@@ -40,8 +40,8 @@ public class BoardDAO implements IBoardDAO {
 
 	@Override
 	public void insertArticle(BoardVO article) {
-		String sql = "INSERT INTO jdbc_board (writer, title, content) "
-				+ "VALUES (?,?,?)";
+		String sql = "INSERT INTO jdbc_board VALUES (jdbc_seq.nextval,?,?,?)";
+		
 		template.update(sql, article.getWriter()
 				, article.getTitle(), article.getContent());
 	}

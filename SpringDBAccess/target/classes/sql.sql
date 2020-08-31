@@ -27,7 +27,17 @@ create table jdbc_board(
   content varchar2(1000)
 );
 
+create sequence jdbc_seq
+start with 1
+increment by 1
+nocache;
+ 
+
 select * from JDBC_BOARD;
 
 drop table jdbc_baord;
+
+select * from jdbc_board
+where writer='나나'
+order by board_no desc;
 
