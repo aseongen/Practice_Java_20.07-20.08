@@ -1,21 +1,23 @@
-package com.spring.database.score.service;
+package com.spring.database.mybatis.score.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.spring.database.mybatis.score.model.ScoreVO;
+import com.spring.database.mybatis.score.repository.IScoreMapper;
 import com.spring.database.score.repository.IScoreDAO;
 
 //add -> interface -> IScoreDAO//
 //controller - Service -> Repository : 컨트롤과 리포지터리 사이에 서비스가 생김 
 //-> 따라서 의존관계 즉 Autowired 주입해줘야 한다.
-@Service
+@Service("scoreService2")
 public class ScoreService implements IScoreService {
 
-	@Autowired //ScoreService 와 dao 는 Autowired로 의존관계 성립
-	private IScoreDAO dao;
+    @Autowired //ScoreService 와 dao 는 Autowired로 의존관계 성립
+	private IScoreMapper dao;
 	
 	@Override
 	public void insertScore(ScoreVO scores) {

@@ -1,8 +1,9 @@
-package com.spring.database.score.controller;
+package com.spring.database.mybatis.score.controller;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,21 +12,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.database.mybatis.score.model.ScoreVO;
-import com.spring.database.score.service.IScoreService;
+import com.spring.database.mybatis.score.service.IScoreService;
 
-@Controller
-@RequestMapping("/score")
+@Controller("scoreController2")
+@RequestMapping("/mybatis/score")
+//void 되어있는 클래스를  return 타입이 있는 클래스로 변경한다-> 매핑주소 변경으로..
 public class ScoreController {
 	
 //	private IScoreDAO dao = new ScoreDAO();
 	@Autowired // 객체주입 
+	@Qualifier("scoreService2")
 	private IScoreService service;
 	
 	//점수 등록 화면을 열어주는 처리를 하는 요청 메서드 
 	@GetMapping("/register")
 	public String register() {
 		System.out.println("/score/register:GET");
-		return "score/write-form";
+		return "score2/write-form";
 	}
 	
 	//점수 등록을 처리하는 요청 메서드 
@@ -34,16 +37,17 @@ public class ScoreController {
 		System.out.println("/score/register: POST");
 		System.out.println("Controller param: " + scores);
 		service.insertScore(scores);
-		return "score/write-result";
+		return "score2/write-result";
 	}
 	
 	//점수 전체 조회를 처리하는 요청 메서드
 	@GetMapping("/list")
-	public void list(Model model) {
-		System.out.println("/score/list: GET");
+	public String list(Model model) {
+		System.out.println("/score2/list: GET");
 		//List<ScoreVO> list = service.selectAllScores();
 		//model.addAttribute("sList", list);
 		model.addAttribute("sList", service.selectAllScores());
+	   return "score2/list";
 	}
 	
 	//점수 삭제 요청 처리 메서드
@@ -52,14 +56,17 @@ public class ScoreController {
 		System.out.println("삭제할 학번: " + stuId);
 		service.deleteScore(stuId);
 		ra.addFlashAttribute("message", "delSuccess");
-		return "redirect:/score/list";
+		return "redirect:/mybatis/score/list";
+		//redirect 는 score2로 하면 안된다  redirect : uri 를 적는것
+		//return : page 경로를 작성하는 것
 	}
 	
 	
 	//점수 개별 조회 화면 열람 요청 메서드
 	@GetMapping("/search")
-	public void search() {
+	public String search() {
 		System.out.println("/score/search: GET");
+		return "score2/search";
 	}
 	
 	//점수 개별 조회 처리 요청 메서드
@@ -76,14 +83,14 @@ public class ScoreController {
 				
 				if(n > list.size()) {
 					ra.addFlashAttribute("msg", "학번정보가 없습니다.");
-					return "redirect:/score/search";
+					return "redirect:/mybatis/score/search";
 				} else {
 					model.addAttribute("stu", service.selectOne(n));
-					return "score/search-result";
+					return "score2/search-result";
 				}
 			} catch(NumberFormatException e) {
 				ra.addFlashAttribute("msg", "숫자로만 입력하세요!");
-				return "redirect:/score/search";
+				return "redirect:/mybatis/score/search";
 			}
 			
 		}

@@ -1,8 +1,9 @@
-package com.spring.database.score.service;
+package com.spring.database.mybatis.score.service;
 
 import java.util.List;
 
 import com.spring.database.mybatis.score.model.ScoreVO;
+
 
 public interface IScoreService {
 

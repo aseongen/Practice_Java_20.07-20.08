@@ -42,7 +42,22 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>5.1.5.RELEASE</version>
 		</dependency>
-		
+
+		<!-- MyBatis 라이브러리 추가 -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.4.6</version>
+		</dependency>
+
+		<!-- 마이바티스와 스프링을 연동해주는 라이브러리 -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+
+
 		<!-- MySQL Connector/Java => 할필요 없음.. MYSQL 사용안해서 -->
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
@@ -66,13 +81,13 @@
 			<version>2.7.8</version>
 		</dependency>
 
-<dependency>
+		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
 			<version>2.0.1</version>
 		</dependency>
-		
-<dependency>
+
+		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 			<version>2.0.1</version>

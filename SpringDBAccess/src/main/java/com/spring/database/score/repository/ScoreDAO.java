@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.spring.database.jdbc.score.commons.ScoreMapper;
-import com.spring.database.jdbc.score.model.ScoreVO;
+import com.spring.database.mybatis.score.model.ScoreVO;
 
 //add -> interface -> IScoreDAO
 //Component == controller == Repository == Service 중 1가지 사용하면 됨 => 빈 등록

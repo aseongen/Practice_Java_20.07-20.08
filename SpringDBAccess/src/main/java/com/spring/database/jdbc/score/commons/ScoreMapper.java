@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.spring.database.jdbc.score.model.ScoreVO;
+import com.spring.database.mybatis.score.model.ScoreVO;
 
 //jdbc template 에서 ResultTest 사용을 편하게 하기위한 클래스 생성
 public class ScoreMapper implements RowMapper<ScoreVO>{

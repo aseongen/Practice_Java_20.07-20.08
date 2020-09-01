@@ -1,45 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- JDBC , DB 관련 빈을 등록하고 관리하는 설정파일 -->
 
 	<!-- 히카리 커넥션 풀 빈 등록 -->
-	<!--  <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<!-- <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/> -->
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
 		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe" />
-	    <property name="username" value="root"/>
-	    <property name="password" value="sql"/>
-	</bean>-->
-	
+		<property name="username" value="week" />
+		<property name="password" value="week" />
+	</bean>
+
 	<!-- 히카리 데이터 소스 빈 등록 -->
-	<!-- <bean id ="ds" class="com.zaxxer.hikari.HikariDataSource">
-	  //상단의 hikariConfig 의존성 주입 //
-	<constructor-arg ref="hikariConfig"/>
-	</bean> -->
-	
-	<!-- JDBC 템플릿 클래스 빈 등록  id는 개별, class 정해져잇엄 => 상단의 내용들을 프레임으로 불러들임-->
-   <!--<bean id ="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" >
-    <property name="dataSource" ref="ds"></property>
-    </bean>-->
-    
-  	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-	<!-- <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/> -->	
-		<property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
-		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe"/>
-		<property name="username" value="week"/>
-		<property name="password" value="week"/>
-
-	</bean> 
-
 	<!-- HikariCP configuration -->
-	<bean id="ds" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+	<bean id="ds" class="com.zaxxer.hikari.HikariDataSource"
+		destroy-method="close">
 		<constructor-arg ref="hikariConfig" />
 	</bean>
+
+<!-- JDBC 템플릿 클래스 빈 등록 id는 개별, class 정해져잇엄 => 상단의 내용들을 프레임으로 불러들임 -->
+	<bean id="jdbcTemplate"
+		class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="ds"></property>
+	</bean>
+
+<!-- mybatis SQL동작을 위한 핵심객체 sqlSessionFactory 클래스 빈 등록 -->
+	<bean id="sqlSessionFactory" 
+	     class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="ds"/>
+		<!-- sessionFactory에게 위치를 알려줘야한다. -->
+		<property name="mapperLocations" value="classpath:/mappers/**/*Mapper.xml"/>
+		<!-- 히카리데이터소스 빈 등록의 id를 setter 주입으로 등록 -->
+		<!-- spring템플릿 or JDBC템플릿 중 1개 선택해서 보통사용  -->
+	</bean>
 	
-	<bean id ="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" >
-    <property name="dataSource" ref="ds"></property>
-    </bean>
-	</beans>
+	<!-- 마이바티스 xml 파일을 빈으로 등록하기 위한 스캔 설정 -->
+	<mybatis-spring:scan base-package="com.spring.database.mybatis.score.repository"/>
+	<mybatis-spring:scan base-package="com.spring.database.jdbc.board.repository"/>
+    
+</beans>
